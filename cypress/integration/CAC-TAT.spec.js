@@ -17,8 +17,11 @@ describe('Central de Atendimento ao cliente TAT', function(){
     })
 
     it('Preenche os campos obrigatórios e tenta confirmar', function(){
+        cy.clock()
         cy.fillMandatoryFieldsAndSubmit()
         cy.get('.success > strong:nth-child(1)').should('be.visible')
+        cy.tick(3000)
+        cy.get('.success > strong:nth-child(1)').should('not.be.visible')
     })
 
     it('Valida que o campo telefone fica obrigatorio quando marco contato via telefone', function(){
@@ -57,5 +60,10 @@ describe('Central de Atendimento ao cliente TAT', function(){
         cy.get('#privacy > a:nth-child(1)').invoke('removeAttr', 'target')
         .click() 
         cy.contains('CAC TAT - Política de privacidade') 
+    })
+
+    it('Procura o gato e tenta deixar ele visivel', function(){
+        cy.get('#cat').invoke('show')
+        .should('be.visible')
     })
 })
